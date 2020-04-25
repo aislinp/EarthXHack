@@ -3,6 +3,8 @@
 from datapackage import Package # import Package
 import datapackage              # import datapackage
 import pandas as pd             #import pandas
+from datetime import datetime
+from dateutil.parser import parse
 
 # grabbing the url of the data
 package = Package('https://datahub.io/core/co2-ppm-daily/datapackage.json')
@@ -21,14 +23,20 @@ df = pd.DataFrame(co2_data)
 # extracting today's carbon level (in ppm)
 today_carbon_level = df.loc[(len(df)-1), 1]
 
-monthstart = df.dt.is_month_start()
-monthend = df.dt.is_month_end()
+today_date = str(df.loc[(len(df)-1), 0])
+today_date = datetime.strptime(today_date, '%Y-%m-%d')
+s = pd.Series(pd.date_range(today_date) '''needs more parameters added''')
+s.dt.is_month_start()
+#monthstart = s.dt.is_month_start()
+#monthend = s.dt.is_month_end()
 
+
+'''
 month1 = []
 month2 = []
 
 if monthstart.loc[(len(monthstart)-1), 1] == True:
-    if len(monthstart) > 0:
+    if len(month1) > 0:
         month2.append(today_carbon_level)
     else:
         month1.append(today_carbon_level)
@@ -43,3 +51,4 @@ else:
         month2.append(today_carbon_level)
     else:
         month1.append(today_carbon_level)
+'''
